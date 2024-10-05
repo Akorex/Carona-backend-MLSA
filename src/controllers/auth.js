@@ -24,7 +24,7 @@ export const registerAccount = async (req, res, next)  => {
         successResponse(res, StatusCodes.CREATED, `Successfully created an account`, newUser)
 
     }catch(error){
-        console.log(JSON.stringify(error))
+        console.log(error)
         next(error)
     }
 
