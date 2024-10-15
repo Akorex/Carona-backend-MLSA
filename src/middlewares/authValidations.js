@@ -47,8 +47,6 @@ const userSchema = z.object({
 
 
 export const signUpValidation = async(req, res, next) =>{
-    console.log("valid?");
-    
     try{
     const signUpData = userSchema.safeParse(req.body)
     
@@ -72,3 +70,4 @@ export const signUpValidation = async(req, res, next) =>{
         next(error)
     }
 }
+

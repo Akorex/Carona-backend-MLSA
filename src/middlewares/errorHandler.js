@@ -2,6 +2,7 @@ import { StatusCodes } from "http-status-codes"
 import { errorResponse } from "../utils/responses.js"
 import mongoose from "mongoose"
 import logger from '../utils/logger.js'
+import { ZodError } from "zod"
 
 const errorHandler = (error, req, res, next) => {
     let message = "Request failed. Try again later"
@@ -26,6 +27,10 @@ const errorHandler = (error, req, res, next) => {
     }else if (error.name === 'MongoServerError' && error.errorResponse.code === 11000){
         message = "Resource already exists"
         errCode = StatusCodes.CONFLICT
+    }
+    else if(error instanceof ZodError){
+        message = error.message
+        errCode = StatusCodes.BAD_REQUEST
     }
 
     logger.error(`[${req.method} ${req.url}] ${typeof message === 'string' ? message: JSON.stringify(message)}`)
