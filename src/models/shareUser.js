@@ -1,4 +1,5 @@
 import {Schema, model} from "mongoose"
+import { number } from "zod"
 
 
 const shareUserSchema = new Schema({
@@ -36,7 +37,12 @@ const shareUserSchema = new Schema({
     acceptedrequests: [{
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }],
+
+    nooftrips : {
+        type: Number,
+        default: 0
+    }
 })
 
 shareUserSchema.set('toJSON',{
